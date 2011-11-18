@@ -19,13 +19,21 @@ public class GetPublicTimeline {
 		Weibo weibo = new Weibo();
 		weibo.setToken(access_token);
 		Timeline tm = new Timeline();
-		try {
-			List<Status> status = tm.getPublicTimeline();
-			for(Status s : status){
-				Log.logInfo(s.toString());
+
+		List<Status> status;
+
+		for(int i =0; i < 10000;i++)
+		{
+			try {
+					status = tm.getPublicTimeline();
+					/*for(Status s : status){
+						Log.logInfo(s.toString());
+					}*/
+					System.out.println("Number: "+i);
+			} catch (WeiboException e) {
+				e.printStackTrace();
 			}
-		} catch (WeiboException e) {
-			e.printStackTrace();
+
 		}
 	}
 
