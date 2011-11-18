@@ -14,7 +14,7 @@ public class GetCommentTimeline {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String access_token = args[0];
+		String access_token = "bc2a9b7eae843e903f05862136d50102";
 		Weibo weibo = new Weibo();
 		weibo.setToken(access_token);
 		Comments cm = new Comments();

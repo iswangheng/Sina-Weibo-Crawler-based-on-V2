@@ -19,14 +19,14 @@ public class Auth4Code {
 		HttpClient client = new HttpClient();
 		PostMethod postMethod = new PostMethod(
 		"https://api.t.sina.com.cn/oauth2/authorize");
-		postMethod.addParameter("client_id", "3050245731"); //appkey
+		postMethod.addParameter("client_id", "795584966"); //appkey
 		postMethod.addParameter(
 				"redirect_uri",
 		"http://www.baidu.com");      //oauth2 回调地址   
 		postMethod.addParameter("response_type", "code");
 		postMethod.addParameter("action", "submit");
-		postMethod.addParameter("userId", "cnjswangheng66@yahoo.com.cn");    //微博帐号
-		postMethod.addParameter("passwd", "swarmhere");    //帐号密码
+		postMethod.addParameter("userId", "y_l_w000007@sina.com");    //微博帐号
+		postMethod.addParameter("passwd", "360477");    //帐号密码
 		try {
 			client.executeMethod(postMethod);
 		} catch (HttpException e) {
@@ -44,8 +44,8 @@ public class Auth4Code {
 		String code=paramsMap.get("code");
 		System.out.println(code);
 		PostMethod tokenMethod=new PostMethod("https://api.t.sina.com.cn/oauth2/access_token");
-		tokenMethod.addParameter("client_id", "3050245731");       //appkey
-		tokenMethod.addParameter("client_secret", "9c84a9381d24a789c31e363dd07b428e");   //appsecret
+		tokenMethod.addParameter("client_id", "795584966");       //appkey
+		tokenMethod.addParameter("client_secret", "d2d60ab7cbeb202f203862ef02801efa");   //appsecret
 		tokenMethod.addParameter("grant_type","authorization_code");
 		tokenMethod.addParameter("code",code);           //上一步骤拿到的code
 		tokenMethod.addParameter("redirect_uri","http://www.baidu.com");   //回调地址
