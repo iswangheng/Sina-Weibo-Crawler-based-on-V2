@@ -48,6 +48,7 @@ public class GetComments implements Runnable{
 				if(commentCounts == 0 )		
 				{
 					//if no comment, skip this status
+					System.out.println("oops no comments here~~~");
 				}
 				else		//if there are comments of this status
 				{
@@ -61,7 +62,7 @@ public class GetComments implements Runnable{
 						List<Comment> comment = null;
 						try
 						{
-							comment = cm.getCommentById(statusId+"",pag,count,0) 	;						
+							comment = cm.getCommentById(statusId+"",pag,count,0);						
 						} catch (Exception e) {
 							//may be there is an exception here, but who knows ,it depends on sina
 							System.out.println("WTF, there IS an exception that actually happened!");
@@ -71,7 +72,7 @@ public class GetComments implements Runnable{
 						if(comment != null)		//just in case ,u know, to be safe is always good
 						{
 							for(Comment c : comment){
-								Log.logInfo(c.toString());
+								//Log.logInfo(c.toString());
 								PublicMethods.insertCommentsSql(conStatus, c, statusId);
 							}							
 						}
@@ -105,7 +106,7 @@ public class GetComments implements Runnable{
 
 	@Override
 	public void run() {
-		while(getStatusComments());
+		while(getStatusComments() == false);
 
 		System.out.println("LALALALa ,all users' comments have been stored~~"); 
 	}

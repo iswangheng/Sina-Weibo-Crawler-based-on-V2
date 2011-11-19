@@ -49,8 +49,8 @@ public class SinaCrawler  implements ActionListener
 		              }	
 		         );
 			
-			//System.setOut(printStream);
-			//System.setErr(printStream);
+			System.setOut(printStream);
+			System.setErr(printStream);
 	    }
 
 	    private void setUpUIComponent(final JFrame f)
@@ -88,10 +88,7 @@ public class SinaCrawler  implements ActionListener
 			Box controlBox = Box.createHorizontalBox(); 
 			Box controlOneVBox = Box.createVerticalBox();
 			Box controlTwoVBox = Box.createVerticalBox();
-			String[] account = {"1.1 Wang Heng's Account ","1.2 Wang Heng's Account ","2.1 Longwei Yu's Account","2.2 Longwei Yu's Account",
-					"3.1 Zhang Zhaochen's Account","3.2 Zhang Zhaochen's Account","4.1 Ge Zhenghan's Account","4.2 Ge Zhenghan's Account",
-					"5.1 Cao Chen's Account","5.2 Cao Chen's Account","6.1 ZZC's Old's Account","6.2 ZZC's Old's Account",
-					"7.1 Lab One's Account","7.2 Lab One's Account","8.1 Lab Two's Account","8.2 Lab Two's Account"};
+			String[] account = {"1  Wang Heng's Account ","2  Longwei Yu's Account","3  Ge Zhenghan's Account", "4  Zhang Zhaochen's  Account","5  Zhang Erchen's Account"};
 			String[] crawlerString = {" Only User Crawler"," Only Relationship Crawler"," Only Status Crawler"," Only Comments Crawler"};
 			chooseAccountBox = new JComboBox<String>(account);
 			chooseAccountBox.addActionListener(this);
@@ -235,18 +232,13 @@ public class SinaCrawler  implements ActionListener
 	    		if(isStart == 1)
 	    		{
 					setAccess(index);	  
+					System.out.println("Index: "+index);
 					startTime = System.currentTimeMillis();
 					statusStringCrawler = new String("\n The "+crawlerName+" crawler is now running!!!");
 					//statusArea.setText(statusStringCrawler);
 					statusArea.setText(statusStringCrawler);
 					//statusArea.paintImmediately(statusArea.getBounds());
 					statusArea.repaint();
-					
-					GetAccessToken getAccessToken = new GetAccessToken();
-					getAccessToken.setToken();
-					PublicMethods.accessToken = getAccessToken.getToken();
-					System.out.println("accessToken: " + PublicMethods.accessToken);
-					
 
 					weibo = new Weibo();
 					weibo.setToken(PublicMethods.accessToken);
@@ -270,44 +262,30 @@ public class SinaCrawler  implements ActionListener
 	    
 	    
 	    public static void setAccess(int i)
-	    {
+	    {					
+			GetAccessToken getAccessToken = null; 			
 	    	 switch (i)
 	    	 {
 		    	 case 0:	// WH
+		    		 getAccessToken = new GetAccessToken();
+		 			 getAccessToken.setToken();
 		    		 break;
-		    	 case 1:
+		    	 case 1:	// LWY
+		    		 getAccessToken = new GetAccessToken(Access.LWY.client_ID, Access.LWY.client_SECRET, Access.LWY.userId, Access.LWY.passwd);
+		 			 getAccessToken.setToken();
 		    		 break;
-		    	 case 2:    //LWY
+		    	 case 2:    // GZH
 		    		 break;
-		    	 case 3:
+		    	 case 3:	//ZZC
 		    		 break; 
-		    	 case 4:		//ZZC
-		    		 break;
-		    	 case 5:
+		    	 case 4:		//ZZC-OLD
 		    		 break; 
-		    	 case 6:  //GZH
-		    		 break; 
-		    	 case 7:
-		    		 break; 
-		    	 case 8:   //CC
-		    		 break; 
-		    	 case 9:
-		    		 break; 
-		    	 case 10:				//ZZCOLD
-		    		 break;
-		    	 case 11: 
-		    		 break; 
-		    	 case 12:		//LAB ONE 
-		    		 break; 
-		    	 case 13: 
-		    		 break; 
-		    	 case 14:		//LAB TWO 
-		    		 break; 
-		    	 case 15: 
-		    		 break;
 		    	default: 
-		    		 break;
+		    		 getAccessToken = new GetAccessToken();
+		 			 getAccessToken.setToken(); 
 	    	 }
+			PublicMethods.accessToken = getAccessToken.getToken();
+			System.out.println("accessToken: " + PublicMethods.accessToken);
 	    }
 	    
 	    public Thread SetAndGetThread()

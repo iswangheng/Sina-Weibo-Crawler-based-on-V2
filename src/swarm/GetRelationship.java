@@ -24,7 +24,7 @@ public class GetRelationship implements Runnable {
 			conUser = PublicMethods.getConnection();
 			stmt = conUser.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			System.out.println(" Okay the connnection to mysql has been established..we are going to select id from users.....");
-			rset = stmt.executeQuery("select id from users where isRelationshipDone = 0 limit 100;");
+			rset = stmt.executeQuery("select id from users where isRelationshipDone = 0 limit 80;");
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -38,7 +38,8 @@ public class GetRelationship implements Runnable {
 		
 		try {
 				while(rset.next())
-				{					
+				{			
+					isRelationshipDone = false;
 					isUserExist = true;
 					userId = rset.getLong(1);
 					System.out.println("userId: "+ userId); 
@@ -113,7 +114,7 @@ public class GetRelationship implements Runnable {
 
 	@Override
 	public void run() {
-		while(getUserRelationship());
+		while(getUserRelationship() == false);
 		
 		System.out.println("lalalala, the relationship of all the users have been stored");
 	}

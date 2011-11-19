@@ -28,7 +28,7 @@ public class GetUserStatus implements Runnable{
 			conUser = PublicMethods.getConnection();
 			stmt = conUser.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			System.out.println(" Okay the connnection to mysql has been established..we are going to select id from users.....");
-			rset = stmt.executeQuery("select id,statusesCount from users where isStatusDone = 0 limit 100;");
+			rset = stmt.executeQuery("select id,statusesCount from users where isStatusDone = 0 limit 50;");
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -40,7 +40,7 @@ public class GetUserStatus implements Runnable{
 		Long userId = (long)0;
 		int statusesCount = 0;
 		Timeline tm = new Timeline();
-		boolean isUserExist = true;
+		boolean isUserExist = true; 
 		
 		try {
 			while(rset.next())
@@ -123,8 +123,8 @@ public class GetUserStatus implements Runnable{
 						else
 						{
 							for(Status s : status){
-								Log.logInfo(s.toString());
-								//System.out.println(s.getUser().getScreenName()+" "+s.getId()+" "+s.getRepostsCount()+" "+s.getCommentsCount());
+								//Log.logInfo(s.toString());
+								System.out.println("status Id: "+s.getId()+" rtCounts: "+s.getRepostsCount()+" commentsCount: "+s.getCommentsCount());
 								PublicMethods.insertStatusSql(conUser, s);
 								
 								//well ,if there is a retweeted status in this status ,store the retweetedStatus and the original user
@@ -188,7 +188,7 @@ public class GetUserStatus implements Runnable{
 
 	@Override
 	public void run() {
-		while(getUserStatus());
+		while(getUserStatus() == false);
 		System.out.println("LALALALa ,getting users status is done~~"); 
 	}
 }
