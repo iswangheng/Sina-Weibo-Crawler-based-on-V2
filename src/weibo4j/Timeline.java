@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import weibo4j.http.ImageItem;
+import weibo4j.http.Response;
 import weibo4j.model.Emotion;
 import weibo4j.model.Paging;
 import weibo4j.model.PostParameter;
@@ -215,7 +216,49 @@ public class Timeline {
 								new PostParameter("feature", feature.toString()) },
 						page));
 	}
-
+	
+	/**
+	 * 新浪是来搞笑的！！！
+	 * 这个函数用来取得response，用来获得用户微博，获得下一页指针！！
+	 * @author swarm
+	 * @param uid
+	 * @param screen_name
+	 * @param count
+	 * @param page
+	 * @param base_app
+	 * @param feature
+	 * @return
+	 * @throws WeiboException
+	 */
+	public Response getUserTimelineRes(String uid, String screen_name,
+	Integer count, Paging page, Integer base_app, Integer feature)
+	throws WeiboException {
+		return Weibo.client.get(
+				WeiboConfig.getValue("baseURL")
+				+ "statuses/user_timeline.json",
+		new PostParameter[] {
+				new PostParameter("uid", uid.toString()),
+				new PostParameter("screen_name", screen_name),
+				new PostParameter("count", count.toString()),
+				new PostParameter("base_app", base_app
+						.toString()),
+				new PostParameter("feature", feature.toString()) },
+		page);
+	}
+	
+	/**
+	 * 用这个来获得用户的微博，别他们的用新浪的，艹
+	 * @author swarm
+	 * @param res
+	 * @return
+	 * @throws WeiboException
+	 */
+	public List<Status> getUserTimelineWH(Response res)
+			throws WeiboException {
+		return Status.constructStatuses(res);
+	}
+ 
+	
 	/**
 	 * 获取指定微博的转发微博列表
 	 * 

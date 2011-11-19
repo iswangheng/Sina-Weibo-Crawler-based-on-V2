@@ -25,7 +25,6 @@ public class SinaCrawler  implements ActionListener
 { 
 	  public SinaCrawler()
 	    {
-		  	publicMethods = new PublicMethods();
 		  	printStream = new PrintStream(new MyOutputStream());
 		  	
 			JFrame crawlerFrame = new JFrame();
@@ -238,16 +237,24 @@ public class SinaCrawler  implements ActionListener
 					setAccess(index);	  
 					startTime = System.currentTimeMillis();
 					statusStringCrawler = new String("\n The "+crawlerName+" crawler is now running!!!");
+					//statusArea.setText(statusStringCrawler);
 					statusArea.setText(statusStringCrawler);
+					//statusArea.paintImmediately(statusArea.getBounds());
+					statusArea.repaint();
 					
 					GetAccessToken getAccessToken = new GetAccessToken();
 					getAccessToken.setToken();
-					publicMethods.setToken(getAccessToken.getToken());
-					System.out.println("accessToken: " + publicMethods.getToken());
+					PublicMethods.accessToken = getAccessToken.getToken();
+					System.out.println("accessToken: " + PublicMethods.accessToken);
+					
+
 					weibo = new Weibo();
-					weibo.setToken(publicMethods.getToken());
-					GetUserStatus getUserStatus = new GetUserStatus();
-					getUserStatus.getUserStatus();
+					weibo.setToken(PublicMethods.accessToken);
+					//GetUserStatus getUserStatus = new GetUserStatus();
+					//getUserStatus.getUserStatus();
+					//Thread toRun = new Thread(new GetUserStatus());
+					Thread toRun = SetAndGetThread();
+					toRun.start();
 	    		}
 	    		else
 	    		{
@@ -311,12 +318,16 @@ public class SinaCrawler  implements ActionListener
 				case 0: 
 					break;
 				case 1: 
+					toRun = new Thread(new GetRelationship());
 					break;
 				case 2: 
+					toRun = new Thread(new GetUserStatus());
 					break;
 				case 3: 
+					toRun = new Thread(new GetComments());
 					break;
 				default: 
+					toRun = new Thread(new GetUserStatus());
 					break;
 			}
 			return toRun;
@@ -393,6 +404,5 @@ public class SinaCrawler  implements ActionListener
 	    public static String accessTokenSecret ="";
 	    
 	    private Weibo weibo;
-	    private PublicMethods publicMethods;
 
 }

@@ -9,10 +9,19 @@ public class Source implements java.io.Serializable{
 	public Source(String str) {
 		super();
 		// TODO Auto-generated constructor stus
-		String[] source = str.split("\"",5);
-        url = source[1];
-        relationShip = source[3];
-        name = source[4].replace(">", "").replace("</a", "");
+		if(str != null && str != "")
+		{
+			String[] source = str.split("\"",5);
+	        url = source[1];
+	        relationShip = source[3];
+	        name = source[4].replace(">", "").replace("</a", "");
+		}
+		else 
+		{
+			url = "";
+			relationShip = "nofollow";
+			name = "";
+		}
 	}
     
 	public String getUrl() {

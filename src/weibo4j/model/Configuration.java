@@ -58,8 +58,8 @@ public class Configuration {
         //defaultProperty.setProperty("weibo4j.http.proxyPassword","");
         //defaultProperty.setProperty("weibo4j.http.proxyPort","");
         defaultProperty.setProperty("weibo4j.http.proxyPort.fallback", "http.proxyPort");
-        defaultProperty.setProperty("weibo4j.http.connectionTimeout", "20000");
-        defaultProperty.setProperty("weibo4j.http.readTimeout", "120000");
+        defaultProperty.setProperty("weibo4j.http.connectionTimeout", "2000000");
+        defaultProperty.setProperty("weibo4j.http.readTimeout", "12000000");
         defaultProperty.setProperty("weibo4j.http.retryCount", "3");
         defaultProperty.setProperty("weibo4j.http.retryIntervalSecs", "10");
         //defaultProperty.setProperty("weibo4j.oauth.consumerKey","");

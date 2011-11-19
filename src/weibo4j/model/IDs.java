@@ -72,6 +72,34 @@ public class IDs extends WeiboResponse {
          } 
         
     }
+    
+    public IDs(Response res) throws WeiboException {
+        super(res);
+        if("[]\n".equals(res.asString())){
+        	previousCursor=0;
+        	nextCursor=0;
+        	ids= new long[0];
+        	return;
+        }
+        JSONObject json=  res.asJSONObject();
+        try {
+        	previousCursor = json.getLong("previous_cursor");
+            nextCursor = json.getLong("next_cursor");
+        	
+            if(!json.isNull("ids")){
+        		JSONArray jsona= json.getJSONArray("ids");
+        		int size=jsona.length();
+        		ids =new long[ size];
+        		for (int i = 0; i < size; i++) {
+        			ids[i] =jsona.getLong(i);
+				}
+        	}
+        	
+         } catch (JSONException jsone) {
+             throw new WeiboException(jsone);
+         } 
+        
+    }
 
     public long[] getIDs() {
         return ids;
