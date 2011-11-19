@@ -14,7 +14,7 @@ import weibo4j.model.WeiboException;
 
 public class GetRelationship implements Runnable {
 	
-	public static boolean getUserRelationship() 
+	public boolean getUserRelationship() 
 	{
 		boolean isRelationshipDone = true; 
 		Connection conUser = null;

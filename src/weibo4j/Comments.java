@@ -2,6 +2,7 @@ package weibo4j;
 
 import java.util.List;
 
+import weibo4j.examples.Log;
 import weibo4j.model.Comment;
 import weibo4j.model.Paging;
 import weibo4j.model.PostParameter;
@@ -37,6 +38,7 @@ public class Comments {
 	 * @since JDK 1.5
 	 */
 	public List<Comment> getCommentById(String id,Paging page,Integer count,Integer filter_by_author) throws WeiboException{
+		Log.logInfo(" id: "+id+WeiboConfig.getValue("baseURL")+" count "+count+" filepath:"+WeiboConfig.getFilePath());
 		return Comment.constructComments(Weibo.client.get(WeiboConfig.getValue("baseURL")+"comments/show.json",
 				new PostParameter[]{
 			new PostParameter("id", id),

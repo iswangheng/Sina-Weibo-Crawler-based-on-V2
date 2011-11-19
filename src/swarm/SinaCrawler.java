@@ -9,6 +9,7 @@ import java.io.IOException;
 import org.apache.commons.httpclient.HttpException;
 
 import weibo4j.Weibo;
+import weibo4j.examples.Log;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -234,17 +235,13 @@ public class SinaCrawler  implements ActionListener
 					setAccess(index);	  
 					System.out.println("Index: "+index);
 					startTime = System.currentTimeMillis();
-					statusStringCrawler = new String("\n The "+crawlerName+" crawler is now running!!!");
-					//statusArea.setText(statusStringCrawler);
+					statusStringCrawler = new String("\n The "+crawlerName+" crawler is now running!!!"); 
 					statusArea.setText(statusStringCrawler);
 					//statusArea.paintImmediately(statusArea.getBounds());
 					statusArea.repaint();
 
 					weibo = new Weibo();
-					weibo.setToken(PublicMethods.accessToken);
-					//GetUserStatus getUserStatus = new GetUserStatus();
-					//getUserStatus.getUserStatus();
-					//Thread toRun = new Thread(new GetUserStatus());
+					weibo.setToken(PublicMethods.accessToken); 
 					Thread toRun = SetAndGetThread();
 					toRun.start();
 	    		}
@@ -267,7 +264,7 @@ public class SinaCrawler  implements ActionListener
 	    	 switch (i)
 	    	 {
 		    	 case 0:	// WH
-		    		 getAccessToken = new GetAccessToken();
+		    		 getAccessToken = new GetAccessToken(Access.WH.client_ID, Access.WH.client_SECRET, Access.WH.userId, Access.WH.passwd);
 		 			 getAccessToken.setToken();
 		    		 break;
 		    	 case 1:	// LWY
@@ -275,8 +272,12 @@ public class SinaCrawler  implements ActionListener
 		 			 getAccessToken.setToken();
 		    		 break;
 		    	 case 2:    // GZH
+		    		 getAccessToken = new GetAccessToken(Access.GZH.client_ID, Access.GZH.client_SECRET, Access.GZH.userId, Access.GZH.passwd);
+		 			 getAccessToken.setToken();
 		    		 break;
 		    	 case 3:	//ZZC
+		    		 getAccessToken = new GetAccessToken(Access.ZZC.client_ID, Access.ZZC.client_SECRET, Access.ZZC.userId, Access.GZH.passwd);
+		 			 getAccessToken.setToken();
 		    		 break; 
 		    	 case 4:		//ZZC-OLD
 		    		 break; 
@@ -285,6 +286,7 @@ public class SinaCrawler  implements ActionListener
 		 			 getAccessToken.setToken(); 
 	    	 }
 			PublicMethods.accessToken = getAccessToken.getToken();
+			//Log.logInfo("accessToken: "+PublicMethods.accessToken);
 			System.out.println("accessToken: " + PublicMethods.accessToken);
 	    }
 	    
@@ -294,6 +296,7 @@ public class SinaCrawler  implements ActionListener
 			switch(crawlerIndex)
 			{
 				case 0: 
+					toRun = new Thread(new GetUsers());
 					break;
 				case 1: 
 					toRun = new Thread(new GetRelationship());

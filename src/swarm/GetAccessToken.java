@@ -141,11 +141,12 @@ public class GetAccessToken
 	private String client_SECRET = "";
 	private String userId = "";
 	private String passwd = "";
-	
+	/*
 	public static void main(String[] args)
 	{
 		GetAccessToken demo = new GetAccessToken();
 		demo.setToken();
 	}
+	*/
 }
 
