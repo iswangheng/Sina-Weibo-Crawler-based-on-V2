@@ -69,9 +69,11 @@ public class GetRelationship implements Runnable {
 							{
 								int number = 0;
 								for(String friendId : friendsList){
-									number++;
-									System.out.println(friendId+"");
-									PublicMethods.insertRelationshipSql(conUser, Long.parseLong(friendId), userId);
+									if((friendId != null) && (!friendId.isEmpty())) {
+										number++;
+										System.out.println(friendId+"");
+										PublicMethods.insertRelationshipSql(conUser, Long.parseLong(friendId), userId);
+									}					
 								}
 								System.out.println("in total friends number: "+number);
 							}					
