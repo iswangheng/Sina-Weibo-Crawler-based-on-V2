@@ -280,6 +280,8 @@ public class SinaCrawler  implements ActionListener
 		 			 getAccessToken.setToken();
 		    		 break; 
 		    	 case 4:		//ZZC-OLD
+		    		 getAccessToken = new GetAccessToken(Access.ZEC.client_ID, Access.ZEC.client_SECRET, Access.ZEC.userId, Access.ZEC.passwd);
+		 			 getAccessToken.setToken();
 		    		 break; 
 		    	default: 
 		    		 getAccessToken = new GetAccessToken();

@@ -33,5 +33,13 @@ public final class Access {
 		final static String userId = "cnjswangheng66@sohu.com";
 		final static String passwd = "swarmhere";
 	}
+	
+	public class ZEC
+	{
+		final static String client_ID = "3661406888";
+		final static String client_SECRET = "8c42686ced3b9b3b8f67c18a11768f8e";
+		final static String userId = "493908419@qq.com";
+		final static String passwd = "880427";
+	}
 
 }
