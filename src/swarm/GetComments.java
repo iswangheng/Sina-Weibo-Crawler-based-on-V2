@@ -16,7 +16,7 @@ public class GetComments implements Runnable{
 	{
 		boolean isCommentsDone = true;
 		Connection conStatus = null;
-		Statement stmt;
+		Statement stmt = null;
 		ResultSet rset = null;
 		System.out.println(" Will connect to the database and get status......."); 
 		try {
@@ -95,6 +95,8 @@ public class GetComments implements Runnable{
 		
 		//close the connection to mysql
 		try {
+			rset.close();
+			stmt.close();
 			conStatus.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -22,7 +22,7 @@ public class GetUserStatus implements Runnable{
 	{
 		boolean isStatusDone = true;
 		Connection conUser = null;
-		Statement stmt;
+		Statement stmt = null;
 		ResultSet rset = null;
 		try {
 			conUser = PublicMethods.getConnection();
@@ -176,6 +176,8 @@ public class GetUserStatus implements Runnable{
 		}
 		
 		try {
+			rset.close();
+			stmt.close();
 			conUser.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

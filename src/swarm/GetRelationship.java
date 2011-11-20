@@ -8,6 +8,7 @@ import java.util.List;
 
 import weibo4j.Friendships;
 import weibo4j.Users;
+import weibo4j.examples.Log;
 import weibo4j.model.Paging;
 import weibo4j.model.User;
 import weibo4j.model.WeiboException;
@@ -18,7 +19,7 @@ public class GetRelationship implements Runnable {
 	{
 		boolean isRelationshipDone = true; 
 		Connection conUser = null;
-		Statement stmt;
+		Statement stmt = null;
 		ResultSet rset = null;
 		try {
 			conUser = PublicMethods.getConnection();
@@ -52,7 +53,7 @@ public class GetRelationship implements Runnable {
 						//e.printStackTrace();
 						String errorMsg = null;
 						errorMsg = e.getError();
-						System.out.println("User: "+errorMsg);
+						Log.logInfo("User Error Msg: "+ e.getMessage());
 						if((errorMsg != null) && (errorMsg.isEmpty() == false) && errorMsg.contains("User does not exist"))
 						{
 							isUserExist = false;
@@ -79,8 +80,8 @@ public class GetRelationship implements Runnable {
 							}					
 	
 						} catch (WeiboException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							Log.logInfo("Friend Id Error Msg: "+ e.getMessage()+" error: "+e.getError());
+							//e.printStackTrace();
 							continue;
 						}
 						
@@ -105,6 +106,8 @@ public class GetRelationship implements Runnable {
 			}
 		
 		try {
+			rset.close();
+			stmt.close();
 			conUser.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
