@@ -8,8 +8,11 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;
 
+import weibo4j.Account;
 import weibo4j.Weibo;
 import weibo4j.examples.Log;
+import weibo4j.model.RateLimitStatus;
+import weibo4j.model.WeiboException;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -244,6 +247,15 @@ public class SinaCrawler  implements ActionListener
 					weibo.setToken(PublicMethods.accessToken); 
 					Thread toRun = SetAndGetThread();
 					toRun.start();
+					/*
+					Account am = new Account();
+					try {
+			            RateLimitStatus json = am.getAccountRateLimitStatus();
+						Log.logInfo(json.toString());
+					} catch (WeiboException e1) {
+						e1.printStackTrace();
+					}
+					*/
 	    		}
 	    		else
 	    		{

@@ -66,9 +66,9 @@ public class GetAccessToken
 		tokenMethod.addParameter("redirect_uri","http://www.baidu.com");   //回调地址
 		try {
 			client.executeMethod(tokenMethod);
-			//result=Thread.currentThread().getName()+"--->"+tokenMethod.getResponseBodyAsString();	
+			result=Thread.currentThread().getName()+"--->"+tokenMethod.getResponseBodyAsString();	
 			result = tokenMethod.getResponseBodyAsString();
-			//System.out.println(result);
+			System.out.println(result);
 			
 			accessToken = parseResult(result);
 
@@ -141,12 +141,12 @@ public class GetAccessToken
 	private String client_SECRET = "";
 	private String userId = "";
 	private String passwd = "";
-	/*
+	
 	public static void main(String[] args)
 	{
 		GetAccessToken demo = new GetAccessToken();
 		demo.setToken();
 	}
-	*/
+	
 }
 
